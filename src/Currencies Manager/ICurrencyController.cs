@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Currencies_Manager
 {
-    class FileManager
+    interface ICurrencyController
     {
+        List<Currency> GetCurrencies();
     }
 }
