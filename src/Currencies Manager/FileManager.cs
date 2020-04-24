@@ -9,6 +9,10 @@ namespace Currencies_Manager
     public class FileManager
     {
         static ICurrencyController currencyController = new CurrencyController();
+        /// <summary>
+        /// Сохранение валюты в файл
+        /// </summary>
+        /// <param name="userInput">Ответ пользователя</param>
         public static async void SaveValue(string userInput)
         {
             string path = @"D:\NewFolder\file.txt";
@@ -26,11 +30,16 @@ namespace Currencies_Manager
                 Console.WriteLine(value);
             }
         }
+        /// <summary>
+        /// Выбор валюты
+        /// </summary>
+        /// <param name="userInput">ответ пользователя</param>
+        /// <returns>выбраная валюта</returns>
         private static Currency SelectValue(string userInput)
         {
-            var list = currencyController.GetCurrencies();
-            var selectCurrency = list.FirstOrDefault(abb => abb.Abbreviation.Equals(userInput, StringComparison.InvariantCultureIgnoreCase));
-            return selectCurrency;
+                var list = currencyController.GetCurrencies();
+                var selectCurrency = list.FirstOrDefault(abb => abb.Abbreviation.Equals(userInput, StringComparison.InvariantCultureIgnoreCase));
+                return selectCurrency;
         }
     }
 }

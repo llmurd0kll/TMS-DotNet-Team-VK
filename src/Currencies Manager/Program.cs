@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using System.Linq;
 
 namespace Currencies_Manager
 {
@@ -12,7 +6,14 @@ namespace Currencies_Manager
     {
         static void Main(string[] args)
         {
-            CurrencyManager.Start();
+            try
+            {
+                CurrencyManager.Start();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

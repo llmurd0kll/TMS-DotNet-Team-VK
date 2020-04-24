@@ -7,15 +7,25 @@ using System.Text;
 
 namespace Currencies_Manager
 {
+    /// <summary>
+    /// Класс валют
+    /// </summary>
     public class Currency
     {
         public string Abbreviation { get; set; }
         public decimal Value { get; set; }
         public int Scale { get; set; }
+        /// <summary>
+        /// Конструктор
+        /// </summary>
         public Currency()
         {
 
         }
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="rate">параметр конкретной валюты</param>
         public Currency(Rate rate)
         {
             Abbreviation = rate.Cur_Abbreviation;
