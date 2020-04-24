@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Currencies_Manager
 {
-   public class Currency
+    public class Currency
     {
         public string Abbreviation { get; set; }
         public decimal Value { get; set; }
@@ -27,7 +27,5 @@ namespace Currencies_Manager
         {
             return $"{Abbreviation}: {Value}";
         }
-
     }
-
 }

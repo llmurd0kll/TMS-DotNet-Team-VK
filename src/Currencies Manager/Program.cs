@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Currencies_Manager
 {
@@ -8,14 +6,8 @@ namespace Currencies_Manager
     {
         static void Main(string[] args)
         {
-            CurrencyManager.Start();         
-         
+            CurrencyManager.Start();
             Console.ReadKey();
-
-
-
-
         }
-
     }
 }

@@ -6,5 +6,6 @@ namespace Currencies_Manager
 {
     interface ICurrencyController
     {
+        List<Currency> GetCurrencies();
     }
 }
