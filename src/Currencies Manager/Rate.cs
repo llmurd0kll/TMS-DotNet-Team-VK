@@ -2,6 +2,9 @@
 
 namespace Currencies_Manager
 {
+    /// <summary>
+    /// Список сво-в для управления валютами
+    /// </summary>
     public class Rate
     {
 

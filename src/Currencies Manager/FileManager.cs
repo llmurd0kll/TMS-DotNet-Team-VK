@@ -8,6 +8,9 @@ namespace Currencies_Manager
 {
     public class FileManager
     {
+        /// <summary>
+        /// Конструктор для валют
+        /// </summary>
         static ICurrencyController currencyController = new CurrencyController();
         /// <summary>
         /// Сохранение валюты в файл
@@ -19,11 +22,13 @@ namespace Currencies_Manager
             var value = SelectValue(userInput);
             if (value == null)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Неправильный ввод валюты");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
+                using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
                 {
                     await sw.WriteLineAsync(value.ToString());
                 }
@@ -35,7 +40,7 @@ namespace Currencies_Manager
         /// </summary>
         /// <param name="userInput">ответ пользователя</param>
         /// <returns>выбраная валюта</returns>
-        private static Currency SelectValue(string userInput)
+        public static Currency SelectValue(string userInput)
         {
                 var list = currencyController.GetCurrencies();
                 var selectCurrency = list.FirstOrDefault(abb => abb.Abbreviation.Equals(userInput, StringComparison.InvariantCultureIgnoreCase));
