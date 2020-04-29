@@ -7,7 +7,6 @@ namespace Currencies_Manager
     /// </summary>
     public class Rate
     {
-
         public int Cur_ID { get; set; }
         public DateTime Date { get; set; }
         public string Cur_Abbreviation { get; set; }
@@ -18,4 +17,3 @@ namespace Currencies_Manager
 }
 
 
- 

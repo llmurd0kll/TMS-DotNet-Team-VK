@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Text;
+using System.Threading;
 
 namespace Currencies_Manager
 {
@@ -15,6 +16,7 @@ namespace Currencies_Manager
         public string Abbreviation { get; set; }
         public decimal Value { get; set; }
         public int Scale { get; set; }
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -32,10 +34,10 @@ namespace Currencies_Manager
             Value = rate.Cur_OfficialRate.GetValueOrDefault();
             Scale = rate.Cur_Scale;
         }
-
         public override string ToString()
         {
-            return $"{Abbreviation}: {Value}";
+            return $"{Abbreviation}: {Value}: {Scale}";
         }
     }
 }
+

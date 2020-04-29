@@ -8,18 +8,14 @@ namespace Currencies_Manager
 {
     public class FileManager
     {
+
         /// <summary>
-        /// Конструктор для валют
+        /// Метод SaveValue сохраняет запрошенную пользователем валюту в файл
         /// </summary>
-        static ICurrencyController currencyController = new CurrencyController();
-        /// <summary>
-        /// Сохранение валюты в файл
-        /// </summary>
-        /// <param name="userInput">Ответ пользователя</param>
-        public static async void SaveValue(string userInput)
+        /// <param name="value"></param>
+        public static async void SaveValue(Currency value)
         {
             string path = @"D:\NewFolder\file.txt";
-            var value = SelectValue(userInput);
             if (value == null)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -28,23 +24,12 @@ namespace Currencies_Manager
             }
             else
             {
-                using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
+                using (StreamWriter sw = new StreamWriter(path, true, Encoding.Default))
                 {
                     await sw.WriteLineAsync(value.ToString());
                 }
                 Console.WriteLine(value);
             }
-        }
-        /// <summary>
-        /// Выбор валюты
-        /// </summary>
-        /// <param name="userInput">ответ пользователя</param>
-        /// <returns>выбраная валюта</returns>
-        public static Currency SelectValue(string userInput)
-        {
-                var list = currencyController.GetCurrencies();
-                var selectCurrency = list.FirstOrDefault(abb => abb.Abbreviation.Equals(userInput, StringComparison.InvariantCultureIgnoreCase));
-                return selectCurrency;
         }
     }
 }
