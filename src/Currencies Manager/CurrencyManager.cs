@@ -67,26 +67,36 @@ namespace Currencies_Manager
         {
             Console.WriteLine("Введите желаемую валюту");
             var userInput = Console.ReadLine();
-            Console.WriteLine("Желаете ли сохранить данную информацию в файл?");
-            var userAnsw = Console.ReadLine();
-            if (userAnsw.Equals("Да", StringComparison.OrdinalIgnoreCase))
+            if(userInput.Length == 3) 
             {
-                var currentCurrency = SelectValue(userInput);
-                FileManager.SaveValue(currentCurrency);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Сохранение выполнено успешно" + " Для продолжения нажмите любую клавишу");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else if (userAnsw.Equals("Нет", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine(SelectValue(userInput));
+                Console.WriteLine("Желаете ли сохранить данную информацию в файл?");
+                var userAnsw = Console.ReadLine();
+                if (userAnsw.Equals("Да", StringComparison.OrdinalIgnoreCase))
+                {
+                    var currentCurrency = SelectValue(userInput);
+                    FileManager.SaveValue(currentCurrency);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Сохранение выполнено успешно" + " Для продолжения нажмите любую клавишу");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else if (userAnsw.Equals("Нет", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine(SelectValue(userInput));
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Неправильный формат ввода, попробуйте еще раз");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Неправильный формат ввода, попробуйте еще раз");
+                Console.WriteLine("Некоректный ввод");
                 Console.ForegroundColor = ConsoleColor.White;
             }
+           
         }
 
         /// <summary>
