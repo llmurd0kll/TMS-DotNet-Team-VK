@@ -1,14 +1,16 @@
-﻿using System;
+﻿using CurrenciesManager.Core.Managers;
+using System;
 
 namespace Currencies_Manager
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            var currencyManager = new CurrencyManager();
             try
             {
-                CurrencyManager.Start();
+                currencyManager.Start();
             }
             catch (Exception ex)
             {
