@@ -34,7 +34,7 @@ namespace Currencies_Manager
             {
                 do
                 {
-                    Console.WriteLine("Пожалуйста, выбирите ваше дальнейшее действие:\n1)Просмотр курса валюты\n2)Просмотр списка доступных валют\n3)Для прсомотра возможных команд\n4)Для выхода ");
+                    Console.WriteLine("Пожалуйста, выбирите ваше дальнейшее действие:\n1)Просмотр курса валюты\n2)Просмотр списка доступных валют\n3)Для выхода ");
                     userInput1 = Console.ReadLine();
                     switch (userInput1)
                     {
@@ -50,15 +50,8 @@ namespace Currencies_Manager
                                 Console.ReadKey();
                                 break;
                             }
-                        case "3":
-                            {
-                                Console.WriteLine("В дальнейшем вы можете использовать следующие команды для удобного взаимодействия: ");
-                                Console.ReadKey();
-                                break;
-                            }
                     }
-                    Console.Clear();
-                } while (userInput1 != "4");
+                } while (userInput1 != "3");
             }
             catch (Exception ex)
             {
