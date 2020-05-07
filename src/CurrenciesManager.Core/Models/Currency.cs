@@ -7,20 +7,18 @@ namespace CurrenciesManager.Core.Models
     /// </summary>
     public class Currency
     {
-        // TODO: XML comments
-
         /// <summary>
-        /// 
+        /// Аббревиатура.
         /// </summary>
         public string Abbreviation { get; set; }
 
         /// <summary>
-        /// 
+        /// Курс запрошенной валюты
         /// </summary>
         public decimal Value { get; set; }
 
         /// <summary>
-        /// 
+        /// Кол-во едениц
         /// </summary>
         public int Scale { get; set; }
 
@@ -46,9 +44,9 @@ namespace CurrenciesManager.Core.Models
         }
 
         /// <summary>
-        /// 
+        /// Вывод информации на консоль
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Информация о запрошенной валюте</returns>
         public override string ToString()
         {
             return $"{Abbreviation}: {Value}: {Scale}";

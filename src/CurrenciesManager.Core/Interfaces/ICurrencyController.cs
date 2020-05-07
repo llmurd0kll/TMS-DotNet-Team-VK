@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 
 namespace CurrenciesManager.Core.Interfaces
 {
-    // TODO: XML comments
-
     /// <summary>
-    /// 
+    /// Интерфейс для валют.
     /// </summary>
     interface ICurrencyController
     {

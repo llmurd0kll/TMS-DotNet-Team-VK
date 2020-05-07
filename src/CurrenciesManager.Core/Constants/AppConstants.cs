@@ -4,7 +4,10 @@ using System.Text;
 
 namespace CurrenciesManager.Core.Constants
 {
-    public class AppContants
+    /// <summary>
+    /// Класс констант.
+    /// </summary>
+    public class AppConstants
     {
 
     }

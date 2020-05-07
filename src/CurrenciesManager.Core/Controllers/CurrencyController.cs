@@ -10,15 +10,13 @@ using CurrenciesManager.Core.Models;
 
 namespace CurrenciesManager.Core.Controllers
 {
-    // TODO: XML comments
-
     /// <summary>
-    /// 
+    /// Получение информации с сайта.
     /// </summary>
     public class CurrencyController : ICurrencyController
     {
 
-        /// <inheritdoc/>
+        
         public async Task<IEnumerable<Currency>> GetCurrenciesAsync()
         {
             using var client = new HttpClient

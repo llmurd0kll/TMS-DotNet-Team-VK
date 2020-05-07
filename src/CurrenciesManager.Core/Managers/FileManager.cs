@@ -5,43 +5,42 @@ using System.Text;
 
 namespace CurrenciesManager.Core.Managers
 {
-    // TODO: XML comments
-
     /// <summary>
-    /// 
+    /// Класс работы с файлом.
     /// </summary>
     public class FileManager
     {
         /// <summary>
         /// Сохранить валюту в файл.
         /// </summary>
-        /// <param name="currency">???</param>
+        /// <param name="currency">Запрошеная валюта</param>
         public async void SaveValue(Currency currency)
         {
-            // TODO: throw new..
-
+            currency = currency ?? throw new ArgumentNullException(nameof(currency));
+            
             string path = @"D:\NewFolder\file.txt"; // TODO: To Constants
 
-            // TODO: try..catch
-
-            // TODO ???
-            if (currency == null)
+            try
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Неправильный ввод валюты"); // TODO: To Constants
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-
-
-
-            else
-            {
-                using (StreamWriter sw = new StreamWriter(path, true, Encoding.Default))
+                if (currency == null)
                 {
-                    await sw.WriteLineAsync(currency.ToString());
+                    ConsoleManager.ExceptionInput("Неправильный ввод валюты");
                 }
-                Console.WriteLine(currency);
+                else
+                {
+                    using (StreamWriter sw = new StreamWriter(path, true, Encoding.Default))
+                    {
+                        await sw.WriteLineAsync(currency.ToString());
+                    }
+                    Console.WriteLine(currency);
+                }
+
             }
+            catch (Exception ex)
+            {
+                ConsoleManager.ExceptionInput($"Произошла ошибка, вот сообщение об ошибке: {ex}");
+            }
+            
         }
     }
 }
