@@ -1,4 +1,5 @@
-﻿using CurrenciesManager.Core.Controllers;
+﻿using CurrenciesManager.Core.Constants;
+using CurrenciesManager.Core.Controllers;
 using CurrenciesManager.Core.Models;
 using System;
 using System.Linq;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace CurrenciesManager.Core.Managers
 {
-    // TODO: XML comments
-
     /// <summary>
-    /// 
+    /// Управление консолью.
     /// </summary>
     public class CurrencyManager
     {
@@ -21,9 +20,7 @@ namespace CurrenciesManager.Core.Managers
             try
             {
                 Console.Clear();
-
-                // TODO: Constants
-                Console.WriteLine("Добро пожаловать в Currency Manager");
+                Console.WriteLine(AppConstants.GREETING);
                 Selection();
             }
             catch (InvalidOperationException ex)
@@ -42,7 +39,7 @@ namespace CurrenciesManager.Core.Managers
                 string userInput = string.Empty;
                 do
                 {
-                    Console.WriteLine("Пожалуйста, выбирите ваше дальнейшее действие:\n1)Просмотр курса валюты\n2)Просмотр списка доступных валют\n3)Для выхода "); // TODO: Constants
+                    Console.WriteLine(AppConstants.SELECT);
                     userInput = Console.ReadLine();
                     switch (userInput)
                     {
@@ -50,10 +47,8 @@ namespace CurrenciesManager.Core.Managers
                             {
                                 ViewRates();
                                 Console.ReadKey();
-
                             }
                             break;
-
                         case "2":
                             {
                                 ViewListAsync();
@@ -65,7 +60,7 @@ namespace CurrenciesManager.Core.Managers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                ConsoleManager.ExceptionInput($"Произошла ошибка, вот сообщение ошибки: {ex}");
             }
         }
 
@@ -74,40 +69,39 @@ namespace CurrenciesManager.Core.Managers
         /// </summary>
         public async void ViewRates()
         {
-            Console.WriteLine("Введите желаемую валюту"); // TODO: Constants
+            Console.WriteLine(AppConstants.CARRENCY_INPUT);
             var userInput = Console.ReadLine();
-            if (userInput.Length == 3)
+            try
             {
-                Console.WriteLine("Желаете ли сохранить данную информацию в файл?"); // TODO: Constants
-                var userAnsw = Console.ReadLine();
-
-                if (userAnsw.Equals("Да", StringComparison.OrdinalIgnoreCase))
+                if (userInput.Length == 3)
                 {
-                    // TODO: try..catch
-                    var currentCurrency = await SelectValueAsync(userInput);
-                    var fileManager = new FileManager();
-                    fileManager.SaveValue(currentCurrency);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Сохранение выполнено успешно" + " Для продолжения нажмите любую клавишу");// TODO: Constants
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-                else if (userAnsw.Equals("Нет", StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine(SelectValueAsync(userInput));
+                    Console.WriteLine(AppConstants.SAVE);
+                    var userAnsw = Console.ReadLine();
+                    if (userAnsw.Equals("Да", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var currentCurrency = await SelectValueAsync(userInput);
+                        var fileManager = new FileManager();
+                        fileManager.SaveValue(currentCurrency);
+                        ConsoleManager.SuccessfulInput("Сохранение выполнено успешно" + " Для продолжения нажмите любую клавишу");
+                    }
+                    else if (userAnsw.Equals("Нет", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine(SelectValueAsync(userInput));
+                    }
+                    else
+                    {
+                        ConsoleManager.ExceptionInput("Неправильный формат ввода, попробуйте еще раз");
+                    }
                 }
                 else
                 {
-                    ConsoleManager.ExceptionInput("Неправильный формат ввода, попробуйте еще раз");
+                    ConsoleManager.ExceptionInput("Некоректный ввод названия валюты");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                // TODO: refactor
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Некоректный ввод");
-                Console.ForegroundColor = ConsoleColor.White;
+                ConsoleManager.ExceptionInput($"Произошла ошибка, вот сообщение ошибки {ex}");
             }
-
         }
 
         /// <summary>
@@ -115,17 +109,14 @@ namespace CurrenciesManager.Core.Managers
         /// </summary>
         public async void ViewListAsync()
         {
-            var currencyController = new CurrencyController(); // TODO: Constants
-
-            Console.WriteLine("Список доступных валют:");
+            var currencyController = new CurrencyController();
+            Console.WriteLine(AppConstants.LIST_OF_CURRENCIES);
             var currencies = await currencyController.GetCurrenciesAsync();
-
             foreach (var currency in currencies)
             {
-                Console.Write($"{currency.Abbreviation}; ");
+                Console.WriteLine($"{currency.Abbreviation} : {currency.Scale,6} : {currency.Value,6} : {currency.Name}");
             }
-
-            Console.WriteLine("Для продолжения нажмите любую клавишу");// TODO: Constants
+            Console.WriteLine(AppConstants.ANY_KEY_TO_CONT);
         }
 
         /// <summary>
@@ -135,8 +126,7 @@ namespace CurrenciesManager.Core.Managers
         /// <returns>Выбранная валюта.</returns>
         public async Task<Currency> SelectValueAsync(string userInput)
         {
-            // TODO: throw new..
-
+            userInput = userInput ?? throw new ArgumentNullException(nameof(userInput));
             var currencyController = new CurrencyController();
             var currencies = await currencyController.GetCurrenciesAsync();
             return currencies.FirstOrDefault(abb => abb.Abbreviation.Equals(userInput, StringComparison.InvariantCultureIgnoreCase));
