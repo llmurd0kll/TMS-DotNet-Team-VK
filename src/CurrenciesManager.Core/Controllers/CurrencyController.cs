@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Linq;
 using CurrenciesManager.Core.Interfaces;
 using CurrenciesManager.Core.Models;
+using CurrenciesManager.Core.Constants;
 
 namespace CurrenciesManager.Core.Controllers
 {
@@ -15,17 +16,14 @@ namespace CurrenciesManager.Core.Controllers
     /// </summary>
     public class CurrencyController : ICurrencyController
     {
-
-        
         public async Task<IEnumerable<Currency>> GetCurrenciesAsync()
         {
             using var client = new HttpClient
             {
-                BaseAddress = new Uri("https://www.nbrb.by") // TODO: Constants
+                BaseAddress = new Uri(AppConstants.NBRB_URL)
             };
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); // TODO: Constants
-            var url = "api/exrates/rates?periodicity=0";// TODO: Constants 
-
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(AppConstants.JSON));
+            var url = AppConstants.URL_RATES;
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
